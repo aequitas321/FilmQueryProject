@@ -31,6 +31,7 @@ public class FilmQueryApp {
 		input.close();
 	}
 
+
 	private void startUserInterface(Scanner input) {
 		boolean checkContinue = true;
 		while (checkContinue) {
@@ -42,40 +43,13 @@ public class FilmQueryApp {
 
 			switch (input.nextInt()) {
 			case 1:
-				System.out.println("Enter film ID.");
-				try {
-					Film film = db.findFilmById(input.nextInt());
-					if (film != null) {
-						System.out.println(film);
-					} else {
-						System.out.println("No film found.");
-					}
-				} catch (Exception e) {
-
-					System.out.println("Invalid entry please try again.");
-					input.next();
-					startUserInterface(input);
-				}
+				findFilmByIdSwitch(input);
 				break;
 
 			case 2:
-				System.out.println("Enter keyword");
-				try {
-					List<Film> films = db.findFilmsByKeyword(input.next());
-					if (films.size() == 0) {
-						System.out.println("No films found.");
-					} else {
-						for (Film film : films) {
-							System.out.println(film);
-						}
-
-					}
-				} catch (Exception e) {
-					
-					
-				}
+				findFilmByKeywordSwitch(input);
 				break;
-				
+
 			case 3:
 				System.out.println("Thank you for using our app. Come back soon!");
 				checkContinue = false;
@@ -87,5 +61,39 @@ public class FilmQueryApp {
 			}
 		}
 
+	}
+	
+	private void findFilmByIdSwitch(Scanner input) {
+		System.out.println("Enter film ID.");
+		try {
+			Film film = db.findFilmById(input.nextInt());
+			if (film != null) {
+				System.out.println(film);
+			} else {
+				System.out.println("No film found.");
+			}
+		} catch (Exception e) {
+			
+			System.out.println("Invalid entry please try again.");
+			input.next();
+			startUserInterface(input);
+		}
+	}
+	
+	private void findFilmByKeywordSwitch(Scanner input) {
+		System.out.println("Enter keyword");
+		try {
+			List<Film> films = db.findFilmsByKeyword(input.next());
+			if (films.size() == 0) {
+				System.out.println("No films found.");
+			} else {
+				for (Film film : films) {
+					System.out.println(film);
+				}
+				
+			}
+		} catch (Exception e) {
+			
+		}
 	}
 }

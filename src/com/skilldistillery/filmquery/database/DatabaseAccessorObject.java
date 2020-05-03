@@ -18,6 +18,16 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 
 	private static final String URL = "jdbc:mysql://localhost:3306/sdvid?useSSL=false";
 
+	static {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			
+			e.printStackTrace();
+		}
+	}
+	
+	
 	@Override
 	public Film findFilmById(int filmId) throws SQLException {
 		Film film = null;
@@ -45,14 +55,6 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 
 	}
 
-	static {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 
 	@Override
 	public Actor findActorById(int actorId) throws SQLException {

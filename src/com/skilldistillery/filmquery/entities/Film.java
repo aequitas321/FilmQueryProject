@@ -248,7 +248,9 @@ public class Film {
 
 	@Override
 	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		actorsNames.forEach(actor -> sb.append(actor.toString()));
 		return "Film: " + title + "\nDate of Release: " + releaseYear + "\nRating: " + rating + "\nDescription: " + description + "\nLanguage: " + language + 
-				"\nActors: " + actorsNames + "\n";
+				"\nActors: \n" +  sb.toString() + "\n";
 	}
 }
