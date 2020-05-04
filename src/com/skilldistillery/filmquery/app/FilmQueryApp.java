@@ -18,11 +18,6 @@ public class FilmQueryApp {
 		app.launch();
 	}
 
-	private void test() throws SQLException {
-		Film film = db.findFilmById(1);
-		System.out.println(film);
-	}
-
 	private void launch() {
 		Scanner input = new Scanner(System.in);
 
@@ -31,69 +26,74 @@ public class FilmQueryApp {
 		input.close();
 	}
 
-
 	private void startUserInterface(Scanner input) {
 		boolean checkContinue = true;
-		while (checkContinue) {
-			System.out.println("What would you like to do?");
-			System.out.println(" ");
-			System.out.println("1) Look up a film by it's ID");
-			System.out.println("2) Look up a film by a search keyword");
-			System.out.println("3) Exit application");
+		try {
+			while (checkContinue) {
+				System.out.println("What would you like to do?");
+				System.out.println(" ");
+				System.out.println("1) Look up a film by it's ID");
+				System.out.println("2) Look up a film by a search keyword");
+				System.out.println("3) Exit application");
+				System.out.print("Selection: ");
 
-			switch (input.nextInt()) {
-			case 1:
-				findFilmByIdSwitch(input);
-				break;
+				switch (input.nextInt()) {
+				case 1:
+					findFilmByIdSwitch(input);
+					break;
 
-			case 2:
-				findFilmByKeywordSwitch(input);
-				break;
+				case 2:
+					findFilmByKeywordSwitch(input);
+					break;
 
-			case 3:
-				System.out.println("Thank you for using our app. Come back soon!");
-				checkContinue = false;
-				break;
-			default: {
-				System.out.println("Invalid input. Please try again.");
+				case 3:
+					System.out.println("Thank you for using our app. Come back soon!");
+					checkContinue = false;
+					break;
+				default: {
+					System.out.println("Invalid input. Please try again.");
+				}
+
+				}
 			}
-
-			}
+		} catch (Exception e) {
+			System.out.println("Invalid selection. Please try again.");
+			input.next();
+			startUserInterface(input);
 		}
-
 	}
-	
+
 	private void findFilmByIdSwitch(Scanner input) {
-		System.out.println("Enter film ID.");
+		System.out.print("\nEnter film ID: ");
 		try {
 			Film film = db.findFilmById(input.nextInt());
 			if (film != null) {
-				System.out.println(film);
+				System.out.println("\n" + film);
 			} else {
-				System.out.println("No film found.");
+				System.out.println("\nNo film found.");
 			}
 		} catch (Exception e) {
-			
+
 			System.out.println("Invalid entry please try again.");
 			input.next();
 			startUserInterface(input);
 		}
 	}
-	
+
 	private void findFilmByKeywordSwitch(Scanner input) {
-		System.out.println("Enter keyword");
+		System.out.println("\nEnter keyword");
 		try {
 			List<Film> films = db.findFilmsByKeyword(input.next());
 			if (films.size() == 0) {
-				System.out.println("No films found.");
+				System.out.println("\nNo films found.");
 			} else {
 				for (Film film : films) {
-					System.out.println(film);
+					System.out.println("\n" + film);
 				}
-				
+
 			}
 		} catch (Exception e) {
-			
+
 		}
 	}
 }
