@@ -18,4 +18,6 @@ public interface DatabaseAccessor {
 	public String language(int filmId) throws SQLException;
 
 	public List<Actor> name(int filmId) throws SQLException;
+
+	public void totalFilmDescription(int filmId) throws SQLException;
 }
