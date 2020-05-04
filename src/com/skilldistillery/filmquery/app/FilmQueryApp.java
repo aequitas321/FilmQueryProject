@@ -93,7 +93,9 @@ public class FilmQueryApp {
 
 			}
 		} catch (Exception e) {
-
+			System.out.println("Invalid entry please try again.");
+			input.next();
+			startUserInterface(input);
 		}
 	}
 }
